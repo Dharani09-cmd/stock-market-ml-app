@@ -6,36 +6,26 @@ This project analyzes real-time stock market data and predicts future stock pric
 🎯 Objectives
 
 Fetch real-time and historical stock data
-
 Analyze stock price trends
-
 Predict future stock prices
-
 Visualize results using an interactive dashboard
-
 Support multi-stock comparison
-
 Provide secure login / signup
 
 🧠 Technologies Used
 
 Python
-
 Pandas, NumPy
-
 Scikit-learn (Linear Regression)
-
 Yahoo Finance API
-
 Streamlit
-
 Matplotlib
-
 SQLite Database
 
 📂 Project Structure
 
 Real-Time-Stock-Market-Analysis/
+
 │
 ├── app.py                 # Main Streamlit application
 
@@ -52,11 +42,8 @@ Real-Time-Stock-Market-Analysis/
 🔐 User Authentication
 
 Users can Sign Up
-
 Then Log In
-
 Access the dashboard securely
-
 Authentication uses SQLite database.
 
 📊 Features
@@ -71,45 +58,34 @@ Authentication uses SQLite database.
 🤖 Machine Learning Model
 
 Algorithm: Linear Regression
-
 Input: Historical closing stock prices
-
 Output: 30-day future price prediction
 
 ☁️ Deployment
-
-The project can be deployed on Render Cloud using:
-
-render.yaml
+The project can be deployed on Render Cloud using: render.yml
+livedeploy link: https://stock-market-ml-app.onrender.com
 
 🚀 Applications
-
 Academic learning
 
 Data science portfolio
-
 Financial analytics
-
 Stock market demonstration
 
 ⚠️ Limitations
 
 Linear Regression may not capture complex market behavior
-
 External factors (news, economy) not included
-
 Predictions are educational only — not financial advice
 
 🔮 Future Enhancements
 
 LSTM deep learning model
-
 Sentiment analysis
-
 Technical indicators
-
 Mobile-friendly UI
 
 🏁 Conclusion
 
 This project demonstrates how machine learning can be applied to analyze and forecast stock data, combining data science, web development, and cloud deployment into a single interactive system.
+
