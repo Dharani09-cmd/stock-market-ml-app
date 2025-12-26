@@ -1,4 +1,5 @@
 📈 Real-Time Stock Market Data Analysis Using Machine Learning
+
 📌 Project Description
 This project analyzes real-time stock market data and predicts future stock prices using machine learning techniques. It fetches historical data from Yahoo Finance, trains a prediction model, and displays insights through an interactive Streamlit dashboard. Users can log in securely, analyze multiple stocks, and view prediction trends.
 
@@ -20,6 +21,7 @@ Matplotlib
 SQLite Database
 
 📂 Project Structure
+
 Real-Time-Stock-Market-Analysis/
 │
 ├── app.py                 # Main Streamlit application
@@ -67,3 +69,4 @@ Mobile-friendly UI
 
 🏁 Conclusion
 This project demonstrates how machine learning can be applied to analyze and forecast stock data while combining data science, web development, and cloud deployment into a single interactive system.
+
