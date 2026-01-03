@@ -5,7 +5,6 @@ from sklearn.linear_model import LinearRegression
 import ssl
 import warnings
 
-# ---- FIX SSL + WARNINGS ----
 ssl._create_default_https_context = ssl._create_unverified_context
 warnings.filterwarnings("ignore")
 
@@ -15,7 +14,6 @@ st.title("🤖 AI Multi-Stock Market Analysis & Prediction Dashboard")
 st.write("Supports NSE (.NS) & US Stocks — Example: TCS, ITC, SBIN, AAPL")
 
 
-# ---------- FORMAT SYMBOL ----------
 def format_symbol(symbol):
     symbol = symbol.strip().upper()
     if "." not in symbol:
@@ -23,74 +21,53 @@ def format_symbol(symbol):
     return symbol
 
 
-# ---------- MARKET MOOD ----------
 def market_mood(df):
     if df is None or df.empty or len(df) < 21:
         return "⚪ Not Enough Data"
-
     last = float(df["Close"].iloc[-1])
     prev = float(df["Close"].iloc[-21])
-
     change = ((last - prev) / prev) * 100
-
     if change > 5:
         return "🟢 Bullish"
     elif change < -5:
         return "🔴 Bearish"
-    else:
-        return "⚪ Neutral"
+    return "⚪ Neutral"
 
 
-# ---------- RISK ----------
 def risk_score(df):
     if df is None or df.empty:
         return "⚪ Unknown"
-
     returns = df["Close"].pct_change().dropna()
-
     if returns.empty:
         return "⚪ Unknown"
-
     vol = float(returns.std() * 100)
-
     if vol < 1.2:
         return "🟢 Low Risk"
     elif vol < 2.5:
         return "🟡 Medium Risk"
-    else:
-        return "🔴 High Risk"
+    return "🔴 High Risk"
 
 
-# ---------- CRASH WARNING ----------
 def crash_warning(df):
     if df is None or df.empty or len(df) < 8:
         return "⚪ Not Enough Data"
-
     last = float(df["Close"].iloc[-1])
     week = float(df["Close"].iloc[-8])
-
     drop = ((week - last) / week) * 100
-
     return "⚠ Possible Downtrend" if drop > 6 else "✔ Stable"
 
 
-# ---------- PRICE PREDICTION ----------
 def predict_price(df):
     df = df.reset_index(drop=True)
-
     df["Days"] = np.arange(len(df))
-
     X = df[["Days"]]
     y = df["Close"]
-
     model = LinearRegression()
     model.fit(X, y)
-
     future = np.array([[len(df) + 30]])
     return float(model.predict(future)[0])
 
 
-# ---------- GROWTH ----------
 def performance_score(df):
     if df is None or df.empty:
         return 0
@@ -99,20 +76,18 @@ def performance_score(df):
     return ((end - start) / start) * 100
 
 
-# ---------- PORTFOLIO ----------
 def portfolio_recommendation(results):
     sorted_stocks = sorted(results, key=lambda x: x["growth"], reverse=True)
     return {
         "Low Risk": sorted_stocks[-1]["symbol"],
-        "Balanced": sorted_stocks[len(sorted_stocks)//2]["symbol"],
-        "High Return": sorted_stocks[0]["symbol"]
+        "Balanced": sorted_stocks[len(sorted_stocks) // 2]["symbol"],
+        "High Return": sorted_stocks[0]["symbol"],
     }
 
 
-# ---------- UI ----------
 symbols = st.text_input(
     "Enter Stock Symbols (comma separated):",
-    "TCS, ITC, SBIN, WIPRO"
+    "TCS, ITC, SBIN, WIPRO",
 )
 
 if st.button("Analyze"):
@@ -126,7 +101,6 @@ if st.button("Analyze"):
         try:
             df = yf.download(stock, period="1y", progress=False)
 
-            # SAFETY CHECK
             if df is None or df.empty:
                 st.error(f"❌ No data found for {stock}")
                 continue
@@ -134,7 +108,7 @@ if st.button("Analyze"):
             df = df.dropna()
 
             if df.empty:
-                st.error(f"❌ No usable price data for {stock}")
+                st.error(f"❌ No usable data for {stock}")
                 continue
 
             st.line_chart(df["Close"])
@@ -151,14 +125,16 @@ if st.button("Analyze"):
             st.write(f"Crash Signal: {warn}")
             st.write(f"Performance Growth: {growth:.2f}%")
 
-            results.append({
-                "symbol": stock,
-                "pred": pred,
-                "mood": mood,
-                "risk": risk,
-                "warn": warn,
-                "growth": growth
-            })
+            results.append(
+                {
+                    "symbol": stock,
+                    "pred": pred,
+                    "mood": mood,
+                    "risk": risk,
+                    "warn": warn,
+                    "growth": growth,
+                }
+            )
 
         except Exception as e:
             st.error(f"{stock} failed — {str(e)}")
