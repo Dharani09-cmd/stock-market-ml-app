@@ -121,7 +121,7 @@ if st.button("Analyze"):
         try:
             df = yf.download(stock, period="1y")
 
-            # --- SAFETY CHECK ---
+            # SAFETY CHECK
             if df is None or df.empty:
                 st.error(f"❌ No data found for {stock}")
                 continue
@@ -167,7 +167,7 @@ if st.button("Analyze"):
 
         st.success(f"✔ Safe Investor → {p['Low Risk']}")
         st.success(f"✔ Balanced Investor → {p['Balanced']}")
-        st.success(f"✔ High Return Investor → {p['High Return']}")
+        st.success(f"✔ High Return → {p['High Return']}")
 
         st.subheader("🤖 AI Insights")
 
