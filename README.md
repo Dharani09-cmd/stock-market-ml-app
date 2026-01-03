@@ -63,7 +63,7 @@ Output: 30-day future price prediction
 
 ☁️ Deployment
 The project can be deployed on Render Cloud using: render.yml
-livedeploy link: https://stock-market-ml-app.onrender.com
+livedeploy link: https://real-time-stock-market-data-analysis.onrender.com/
 
 🚀 Applications
 Academic learning
@@ -88,4 +88,5 @@ Mobile-friendly UI
 🏁 Conclusion
 
 This project demonstrates how machine learning can be applied to analyze and forecast stock data, combining data science, web development, and cloud deployment into a single interactive system.
+
 
