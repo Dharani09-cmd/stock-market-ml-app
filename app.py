@@ -4,6 +4,7 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 import ssl
 import warnings
+import matplotlib.pyplot as plt   # 👈 NEW
 
 # ---------- FIX SSL & WARNINGS ----------
 ssl._create_default_https_context = ssl._create_unverified_context
@@ -134,7 +135,6 @@ if st.button("Analyze"):
         try:
             df = yf.download(stock, period="1y", progress=False)
 
-            # DATA SAFETY CHECK
             if df is None or df.empty:
                 st.error(f"❌ No data found for {stock}")
                 continue
@@ -145,10 +145,17 @@ if st.button("Analyze"):
                 st.error(f"❌ No usable data for {stock}")
                 continue
 
-            # PRICE CHART
-            st.line_chart(df["Close"])
+            # ---------- PRICE CHART (Matplotlib) ----------
+            fig, ax = plt.subplots()
+            ax.plot(df.index, df["Close"])
+            ax.set_title(f"{stock} Closing Price Trend (1 Year)")
+            ax.set_xlabel("Date")
+            ax.set_ylabel("Price")
 
-            # ANALYTICS
+            st.pyplot(fig)
+            plt.close(fig)
+
+            # ---------- ANALYTICS ----------
             pred = predict_price(df)
             mood = market_mood(df)
             risk = risk_score(df)
@@ -175,7 +182,6 @@ if st.button("Analyze"):
         except Exception as e:
             st.error(f"{stock} failed — {str(e)}")
 
-    # SUMMARY SECTION
     if results:
 
         st.subheader("🏆 Performance Ranking")
